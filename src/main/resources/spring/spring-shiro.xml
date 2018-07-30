@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 1 -->
+    <bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="securityManager">
+        <property name="cacheManager" ref="cacheManager"/>
+        <property name="authenticator" ref="authenticator"/>
+        <property name="realms">
+            <list>
+                <ref bean="shiroRealm"/>
+                <ref bean="shiroRealm2"/>
+            </list>
+        </property>
+    </bean>
+    <!-- 2 -->
+    <bean class="org.apache.shiro.cache.ehcache.EhCacheManager" id="cacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:spring/ehcache.xml"/>
+    </bean>
+    <!-- 3 -->
+    <bean class="org.apache.shiro.authc.pam.ModularRealmAuthenticator" id="authenticator">
+        <property name="authenticationStrategy"> <!-- 多realm认证策略 -->
+            <bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"/>
+        </property>
+    </bean>
+    <bean class="cn.liaohongdong.common.ShiroRealm" id="shiroRealm">
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <property name="hashAlgorithmName" value="MD5"/>
+                <property name="hashIterations" value="1"/>
+            </bean>
+        </property>
+    </bean>
+    <bean class="cn.liaohongdong.common.ShiroRealm2" id="shiroRealm2">
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <property name="hashAlgorithmName" value="SHA1"/>
+                <property name="hashIterations" value="1"/>
+            </bean>
+        </property>
+    </bean>
+    <!-- 4 可以自动的来调用配置在spring IOC容器中 shiro bean 的生命周期方法 -->
+    <bean class="org.apache.shiro.spring.LifecycleBeanPostProcessor" id="lifecycleBeanPostProcessor"/>
+    <!-- 5 启用ioc容器中使用shiro的注解 但是必须先配置 lifecycleBeanPostProcessor 之后才可以使用-->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    <!-- 6 id 必须和web.xml文件中的DelegatingFilterProxy的filter-name一致 -->
+    <bean class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" id="shiroFilter">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/admin/login"/>
+        <property name="successUrl" value="/admin/list"/>
+        <property name="unauthorizedUrl" value="/admin/unauthorized"/>
+        <property name="filterChainDefinitionMap" ref="filterChainDefinitionMap"/>
+        <!--
+            配置那些页面需要受到权限验证
+            1.anon 匿名访问
+            2.authc 必须认证后访问
+        -->
+        <!--<property name="filterChainDefinitions">-->
+        <!--<value>-->
+        <!--/favicon.ioc = anon-->
+        <!--/admin/doLogin = anon-->
+        <!--/admin/logout = logout-->
+        <!--# /admin/** = anon-->
+        <!--/**.js = anon-->
+        <!--/**.css = anon-->
+        <!--/**.gif = anon-->
+        <!--/**.png = anon-->
+        <!--/**.jpeg = anon-->
+
+        <!--/admin/admin = roles[admin]-->
+        <!--/admin/user = roles[user]-->
+
+        <!--/** = authc-->
+        <!--</value>-->
+        <!--</property>-->
+    </bean>
+    <!-- roles配置 -->
+    <bean factory-bean="filterChainDefinitionMapBuilder"
+          factory-method="build"
+          id="filterChainDefinitionMap"/>
+    <!-- 工厂bean -->
+    <bean class="cn.liaohongdong.common.FilterChainDefinitionMapBuilder" id="filterChainDefinitionMapBuilder"/>
+
+</beans>
