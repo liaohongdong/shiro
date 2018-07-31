@@ -1,5 +1,7 @@
 package cn.liaohongdong;
 
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+
 import java.util.Base64;
 
 public class Test {
@@ -13,6 +15,11 @@ public class Test {
         System.out.println(s1);
         byte[] decode1 = Base64.getMimeDecoder().decode(s1);
         System.out.println(new String(decode1));
+
+        SecureRandomNumberGenerator sr = new SecureRandomNumberGenerator();
+        sr.setSeed("123".getBytes());
+        String s2 = sr.nextBytes().toHex();
+        System.out.println(s2);
     }
 
 }

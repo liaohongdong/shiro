@@ -15,6 +15,8 @@
                 <ref bean="shiroRealm2"/>
             </list>
         </property>
+        <property name="sessionManager" ref="sessionManager"/>
+        <property name="rememberMeManager" ref="rememberMeManager"/>
     </bean>
     <!-- 2 -->
     <bean class="org.apache.shiro.cache.ehcache.EhCacheManager" id="cacheManager">
@@ -57,29 +59,6 @@
         <property name="successUrl" value="/admin/list"/>
         <property name="unauthorizedUrl" value="/admin/unauthorized"/>
         <property name="filterChainDefinitionMap" ref="filterChainDefinitionMap"/>
-        <!--
-            配置那些页面需要受到权限验证
-            1.anon 匿名访问
-            2.authc 必须认证后访问
-        -->
-        <!--<property name="filterChainDefinitions">-->
-        <!--<value>-->
-        <!--/favicon.ioc = anon-->
-        <!--/admin/doLogin = anon-->
-        <!--/admin/logout = logout-->
-        <!--# /admin/** = anon-->
-        <!--/**.js = anon-->
-        <!--/**.css = anon-->
-        <!--/**.gif = anon-->
-        <!--/**.png = anon-->
-        <!--/**.jpeg = anon-->
-
-        <!--/admin/admin = roles[admin]-->
-        <!--/admin/user = roles[user]-->
-
-        <!--/** = authc-->
-        <!--</value>-->
-        <!--</property>-->
     </bean>
     <!-- roles配置 -->
     <bean factory-bean="filterChainDefinitionMapBuilder"
@@ -87,5 +66,29 @@
           id="filterChainDefinitionMap"/>
     <!-- 工厂bean -->
     <bean class="cn.liaohongdong.common.FilterChainDefinitionMapBuilder" id="filterChainDefinitionMapBuilder"/>
+
+    <bean id="sessionManager" class="org.apache.shiro.session.mgt.DefaultSessionManager">
+        <property name="globalSessionTimeout" value="1800000"/>
+        <property name="deleteInvalidSessions" value="true"/>
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+        <property name="sessionDAO" ref="sessionDAO"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="sessionDAO" class="cn.liaohongdong.common.MySessionDao">
+        <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
+        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+    </bean>
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+    <bean id="sessionFactory" class="cn.liaohongdong.common.OnlineSessionFactory"/>
+
+    <!-- rememberMeManager管理器，写cookie，取出cookie生成用户信息 -->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cookie" ref="rememberMeCookie"/>
+    </bean>
+    <!-- 记住我cookie -->
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <!-- 记住我cookie生效时间30天  2592000  604800-->
+        <property name="maxAge" value="10"/>
+    </bean>
 
 </beans>

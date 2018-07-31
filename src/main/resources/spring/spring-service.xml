@@ -3,9 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <context:component-scan base-package="cn.liaohongdong.service"/>
 
@@ -14,5 +16,28 @@
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- 面向切面配置 -->
+    <!--<aop:config>-->
+        <!--&lt;!&ndash; 定义切入点 &ndash;&gt;-->
+        <!--<aop:pointcut expression="execution(* cn.liaohongdong.*(..) )" id="pointCut"/>-->
+        <!--&lt;!&ndash; pointcut和advice的配置器。是将advice注入程序中pointcut位置的代码 &ndash;&gt;-->
+        <!--<aop:advisor advice-ref="txAdvice" pointcut-ref="pointCut"/>-->
+    <!--</aop:config>-->
+    <!--&lt;!&ndash; 定义哪些方法需要事物支持 &ndash;&gt;-->
+    <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">-->
+        <!--<tx:attributes>-->
+            <!--&lt;!&ndash; 传播行为 &ndash;&gt;-->
+            <!--<tx:method name="save*" propagation="REQUIRED" />-->
+            <!--<tx:method name="insert*" propagation="REQUIRED" />-->
+            <!--<tx:method name="add*" propagation="REQUIRED" />-->
+            <!--<tx:method name="create*" propagation="REQUIRED" />-->
+            <!--<tx:method name="delete*" propagation="REQUIRED" />-->
+            <!--<tx:method name="update*" propagation="REQUIRED" />-->
+            <!--<tx:method name="find*" propagation="SUPPORTS" read-only="true" />-->
+            <!--<tx:method name="select*" propagation="SUPPORTS" read-only="true" />-->
+            <!--<tx:method name="get*" propagation="SUPPORTS" read-only="true" />-->
+        <!--</tx:attributes>-->
+    <!--</tx:advice>-->
 
 </beans>
