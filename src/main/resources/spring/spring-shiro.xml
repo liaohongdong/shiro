@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- 1 -->
     <bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="securityManager">
@@ -68,7 +66,7 @@
     <bean class="cn.liaohongdong.common.FilterChainDefinitionMapBuilder" id="filterChainDefinitionMapBuilder"/>
 
     <bean id="sessionManager" class="org.apache.shiro.session.mgt.DefaultSessionManager">
-        <property name="globalSessionTimeout" value="1800000"/>
+        <!--<property name="globalSessionTimeout" value="1800000"/>-->
         <property name="deleteInvalidSessions" value="true"/>
         <property name="sessionValidationSchedulerEnabled" value="true"/>
         <property name="sessionDAO" ref="sessionDAO"/>
@@ -88,7 +86,11 @@
     <!-- 记住我cookie -->
     <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <!-- 记住我cookie生效时间30天  2592000  604800-->
-        <property name="maxAge" value="10"/>
+        <constructor-arg value="liao-session"/>
+        <property name="maxAge" value="-1"/>
     </bean>
 
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
 </beans>
