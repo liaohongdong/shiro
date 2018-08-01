@@ -25,6 +25,7 @@ public class MySessionDao extends EnterpriseCacheSessionDAO {
         se.setId(sessionId.toString());
         se.setSession(SerializableUtils.serialize(session));
         sysSessionMapper.insert(se);
+        System.out.println("haha");
         return session.getId();
     }
 
