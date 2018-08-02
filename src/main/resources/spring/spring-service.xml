@@ -16,6 +16,7 @@
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
+    <tx:annotation-driven />
 
     <!-- 面向切面配置 -->
     <!--<aop:config>-->

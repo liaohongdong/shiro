@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 
@@ -39,7 +40,7 @@ public class AdminController {
                 LogUtils.logger(this.getClass(), "------AuthenticationException error------" + e);
             }
         }
-        return "redirect:/admin/list";
+        return "list";
     }
 
     @RequestMapping("/list")
@@ -49,9 +50,10 @@ public class AdminController {
     }
 
     @RequestMapping("/admin")
-    public String admin() {
+    public ModelAndView admin(ModelAndView view) {
         System.out.println("admin....");
-        return "admin";
+//        return "admin";
+        return new ModelAndView("admin");
     }
 
     @RequestMapping("/user")
@@ -76,7 +78,7 @@ public class AdminController {
     public String getTime(HttpSession session) {
         session.setAttribute("liao", "gagagagaga");
         System.out.println(testService.getTime());
-        return "redirect:/admin/list";
+        return "list";
     }
 
 }
