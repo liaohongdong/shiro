@@ -13,7 +13,7 @@ public class OnlineSessionFactory implements SessionFactory {
         OnlineSession session = new OnlineSession();
         if (sessionContext != null && sessionContext instanceof WebSessionContext) {
             HttpServletRequest request = (HttpServletRequest) ((WebSessionContext) sessionContext).getServletRequest();
-            if (request != null){
+            if (request != null) {
                 session.setHost(request.getRemoteHost());
                 session.setUserAgent(request.getHeader("User-Agent"));
             }
