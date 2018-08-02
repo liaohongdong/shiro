@@ -26,3 +26,5 @@ hs_err_pid*
 /out/
 /generator/
 *.iml
+/shrio.iml
+/classes/
