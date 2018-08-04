@@ -16,12 +16,11 @@
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
-    <tx:annotation-driven />
 
     <!-- 面向切面配置 -->
     <!--<aop:config>-->
         <!--&lt;!&ndash; 定义切入点 &ndash;&gt;-->
-        <!--<aop:pointcut expression="execution(* cn.liaohongdong.*(..) )" id="pointCut"/>-->
+        <!--<aop:pointcut expression="execution(* cn.liaohongdong.service.*(..))" id="pointCut"/>-->
         <!--&lt;!&ndash; pointcut和advice的配置器。是将advice注入程序中pointcut位置的代码 &ndash;&gt;-->
         <!--<aop:advisor advice-ref="txAdvice" pointcut-ref="pointCut"/>-->
     <!--</aop:config>-->
@@ -29,15 +28,15 @@
     <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">-->
         <!--<tx:attributes>-->
             <!--&lt;!&ndash; 传播行为 &ndash;&gt;-->
-            <!--<tx:method name="save*" propagation="REQUIRED" />-->
-            <!--<tx:method name="insert*" propagation="REQUIRED" />-->
-            <!--<tx:method name="add*" propagation="REQUIRED" />-->
-            <!--<tx:method name="create*" propagation="REQUIRED" />-->
-            <!--<tx:method name="delete*" propagation="REQUIRED" />-->
-            <!--<tx:method name="update*" propagation="REQUIRED" />-->
-            <!--<tx:method name="find*" propagation="SUPPORTS" read-only="true" />-->
-            <!--<tx:method name="select*" propagation="SUPPORTS" read-only="true" />-->
-            <!--<tx:method name="get*" propagation="SUPPORTS" read-only="true" />-->
+            <!--<tx:method name="save*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="insert*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="add*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="create*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="delete*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="update*" propagation="REQUIRED"/>-->
+            <!--<tx:method name="find*" propagation="SUPPORTS" read-only="true"/>-->
+            <!--<tx:method name="select*" propagation="SUPPORTS" read-only="true"/>-->
+            <!--<tx:method name="get*" propagation="SUPPORTS" read-only="true"/>-->
         <!--</tx:attributes>-->
     <!--</tx:advice>-->
 

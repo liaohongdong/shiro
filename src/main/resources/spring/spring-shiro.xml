@@ -5,7 +5,7 @@
 
     <!-- 1 -->
     <bean class="org.apache.shiro.web.mgt.DefaultWebSecurityManager" id="securityManager">
-        <!--<property name="cacheManager" ref="cacheManager"/>-->
+        <property name="cacheManager" ref="cacheManager"/>
         <property name="authenticator" ref="authenticator"/>
         <property name="realms">
             <list>
@@ -65,30 +65,54 @@
     <!-- 工厂bean -->
     <bean class="cn.liaohongdong.common.FilterChainDefinitionMapBuilder" id="filterChainDefinitionMapBuilder"/>
 
-    <bean id="sessionManager" class="org.apache.shiro.session.mgt.DefaultSessionManager">
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <property name="globalSessionTimeout" value="1800000"/>
         <property name="deleteInvalidSessions" value="true"/>
+        <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
         <property name="sessionValidationSchedulerEnabled" value="true"/>
         <property name="sessionDAO" ref="sessionDAO"/>
+        <property name="sessionIdUrlRewritingEnabled" value="false"/>
         <!--<property name="sessionFactory" ref="sessionFactory"/>-->
+        <property name="sessionIdCookie" ref="sessionIdCookie"/>
+        <property name="sessionIdCookieEnabled" value="true"/>
     </bean>
+    <bean id="sessionValidationScheduler"
+          class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
+        <!-- 设置session的失效扫描间隔，单位为毫秒 -->
+        <property name="sessionValidationInterval" value="100000"/>
+        <!-- 随后还需要定义有一个会话管理器的程序类的引用 -->
+        <property name="sessionManager" ref="sessionManager"/>
+    </bean>
+    <!-- 配置session的定时验证检测程序类，以让无效的session释放 -->
     <bean id="sessionDAO" class="cn.liaohongdong.common.MySessionDao">
         <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
-        <property name="cacheManager" ref="cacheManager"/>
     </bean>
     <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
     <bean id="sessionFactory" class="cn.liaohongdong.common.OnlineSessionFactory"/>
 
     <!-- rememberMeManager管理器，写cookie，取出cookie生成用户信息 -->
+    <!--<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">-->
+    <!--<property name="cookie" ref="rememberMeCookie"/>-->
+    <!--</bean>-->
     <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cipherKey" value="\#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
         <property name="cookie" ref="rememberMeCookie"/>
     </bean>
     <!-- 记住我cookie -->
     <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <!-- 记住我cookie生效时间30天  2592000  604800-->
         <constructor-arg value="liao-session"/>
-        <property name="maxAge" value="604800"/>
+        <property name="maxAge" value="-1"/>
+        <property name="httpOnly" value="true"/>
+    </bean>
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="sid"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="-1"/>
+    </bean>
+    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+        <property name="rememberMeParam" value="rememberMe"/>
     </bean>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
