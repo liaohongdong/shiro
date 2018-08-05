@@ -74,7 +74,7 @@ public class AdminController {
     }
 
     @RequestMapping("/getTime")
-    @RequiresRoles(value = {"admin"})
+//    @RequiresRoles(value = {"admin"})
     public String getTime(HttpSession session) {
         session.setAttribute("liao", "gagagagaga");
         System.out.println(testService.getTime());
