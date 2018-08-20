@@ -12,8 +12,8 @@
         <property name="realms">
             <list>
                 <ref bean="casRealm"/>
-                <ref bean="shiroRealm"/>
-                <ref bean="shiroRealm2"/>
+                <!--<ref bean="shiroRealm"/>-->
+                <!--<ref bean="shiroRealm2"/>-->
             </list>
         </property>
         <!--<property name="sessionManager" ref="sessionManager"/>-->
@@ -49,7 +49,7 @@
     <bean id="casRealm" class="cn.liaohongdong.common.SSOCasRealm">
         <property name="defaultRoles" value="admin"/>
         <property name="casServerUrlPrefix" value="https://www.liaohongdong.cn/cas"/>
-        <property name="casService" value="http://localhost:8080/admin/login/"/>
+        <property name="casService" value="http://localhost:8080/admin/list/"/>
     </bean>
     <bean id="casSubjectFactory" class="org.apache.shiro.cas.CasSubjectFactory"/>
     <!-- 4 可以自动的来调用配置在spring IOC容器中 shiro bean 的生命周期方法 -->
@@ -64,7 +64,7 @@
     <bean class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" id="shiroFilter">
         <property name="securityManager" ref="securityManager"/>
         <!--<property name="loginUrl" value="/admin/login"/>-->
-        <property name="loginUrl" value="https://www.liaohongdong.cn/cas/login?service=http://localhost:8080/admin/login/"/>
+        <property name="loginUrl" value="https://www.liaohongdong.cn/cas/login?service=http://localhost:8080/admin/list/"/>
         <property name="successUrl" value="/admin/list"/>
         <property name="unauthorizedUrl" value="/admin/unauthorized"/>
         <property name="filterChainDefinitionMap" ref="filterChainDefinitionMap"/>
@@ -138,7 +138,7 @@
     </bean>
 
     <bean id="casFilter" class="org.apache.shiro.cas.CasFilter">
-        <property name="failureUrl" value="http://www.baidu.com"/>
+        <property name="failureUrl" value="https://www.liaohongdong.cn/cas/login?service=http://localhost:8080/admin/list/"/>
     </bean>
 
 
