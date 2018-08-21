@@ -47,7 +47,7 @@
         </property>
     </bean>
     <bean id="casRealm" class="cn.liaohongdong.common.SSOCasRealm">
-        <property name="defaultRoles" value="admin"/>
+        <property name="defaultRoles" value="ROLE_USER"/>
         <property name="casServerUrlPrefix" value="https://www.liaohongdong.cn/cas"/>
         <property name="casService" value="http://localhost:8080/admin/list/"/>
     </bean>
@@ -57,6 +57,7 @@
     <!-- 5 启用ioc容器中使用shiro的注解 但是必须先配置 lifecycleBeanPostProcessor 之后才可以使用-->
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
           depends-on="lifecycleBeanPostProcessor"/>
+    <!-- 启用shiro AOP注解 -->
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
@@ -64,8 +65,8 @@
     <bean class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" id="shiroFilter">
         <property name="securityManager" ref="securityManager"/>
         <!--<property name="loginUrl" value="/admin/login"/>-->
-        <property name="loginUrl" value="https://www.liaohongdong.cn/cas/login?service=http://localhost:8080/admin/list/"/>
-        <property name="successUrl" value="/admin/list"/>
+        <property name="loginUrl" value="https://www.liaohongdong.cn/cas/login?service=http://localhost:8080/admin/login/"/>
+        <property name="successUrl" value="/admin/admin"/>
         <property name="unauthorizedUrl" value="/admin/unauthorized"/>
         <property name="filterChainDefinitionMap" ref="filterChainDefinitionMap"/>
         <property name="filters">
@@ -138,7 +139,7 @@
     </bean>
 
     <bean id="casFilter" class="org.apache.shiro.cas.CasFilter">
-        <property name="failureUrl" value="https://www.liaohongdong.cn/cas/login?service=http://localhost:8080/admin/list/"/>
+        <property name="failureUrl" value="http://localhost:8080/admin/unauthorized/"/>
     </bean>
 
 
