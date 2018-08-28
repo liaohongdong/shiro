@@ -78,4 +78,5 @@
         <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
     </bean>
 
+    <bean id="passwordHelper" class="cn.liaohongdong.common.PasswordHelper"/>
 </beans>

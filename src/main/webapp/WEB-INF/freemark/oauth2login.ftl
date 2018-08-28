@@ -22,11 +22,11 @@
 
     <div class="row marketing">
         <div class="col-lg-10">
-            <%--<form class="form-horizontal" method="post" action="${path.contextPath}/authorize">--%>
+           <form class="form-horizontal" method="post" action="${path.contextPath}/authorize">
             <form class="form-horizontal" method="post" action="">
-                <input type="hidden" name="client_id" value="${param.client_id}">
-                <input type="hidden" name="response_type" value="${param.response_type}">
-                <input type="hidden" name="redirect_uri" value="${param.redirect_uri}">
+                <input type="hidden" name="client_id" value="${RequestParameters['client_id']}">
+                <input type="hidden" name="response_type" value="${RequestParameters['response_type']}">
+                <input type="hidden" name="redirect_uri" value="${RequestParameters['redirect_uri']}">
                 <div class="form-group">
                     <label for="username" class="col-sm-4 control-label">用户名</label>
                     <div class="col-sm-8">

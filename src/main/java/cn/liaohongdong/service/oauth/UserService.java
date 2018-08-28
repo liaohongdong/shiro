@@ -4,6 +4,7 @@ import cn.liaohongdong.common.PasswordHelper;
 import cn.liaohongdong.dao.UserMapper;
 import cn.liaohongdong.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,7 +13,7 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired(required = false)
+    @Autowired
     private PasswordHelper passwordHelper;
 
     public User findByUsername(String username) {
