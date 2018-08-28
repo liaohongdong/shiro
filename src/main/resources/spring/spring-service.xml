@@ -17,6 +17,13 @@
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
+    <bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:spring/ehcache.xml"/>
+    </bean>
+    <bean id="springCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="ehcacheManager"/>
+    </bean>
+
     <!-- 面向切面配置 -->
     <!--<aop:config>-->
         <!--&lt;!&ndash; 定义切入点 &ndash;&gt;-->
