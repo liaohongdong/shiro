@@ -92,5 +92,11 @@
     where
     client_id = #{clientId}
   </select>
-
+  <select id="findByClientSecret" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from oauth2_client
+    where
+    client_secret = #{clientSecret}
+  </select>
 </mapper>

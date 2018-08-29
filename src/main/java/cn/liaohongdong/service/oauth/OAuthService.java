@@ -24,4 +24,28 @@ public class OAuthService {
     public void addAuthCode(String authCode, String username) {
         cache.put(authCode, username);
     }
+
+    public boolean checkClientSecret(String clientSecret) {
+        return clientService.findByClientSecret(clientSecret) != null;
+    }
+
+    public boolean checkAuthCode(String authCode) {
+        return cache.get(authCode) != null;
+    }
+
+    public String getUsernameByAuthCode(String authCode) {
+        return (String) cache.get(authCode).get();
+    }
+
+    public boolean checkAccessToken(String accessToken) {
+        return cache.get(accessToken) != null;
+    }
+
+    public String getUsernameByAccessToken(String accessToken) {
+        return (String) cache.get(accessToken).get();
+    }
+
+    public long getExpireIn() {
+        return 3600L;
+    }
 }

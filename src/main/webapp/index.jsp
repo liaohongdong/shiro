@@ -48,7 +48,7 @@ client_secret           d8346ea2-6017-43ed-ad68-19c0f971738b    应用secret
 
 2. 请求授权码
 
-http://localhost:4433/authorize?client_id=c1ebe466-1cdc-4bd3-ab69-77c3561b9dee&response_type=code&redirect_uri=http://notes.coding.me
+https://localhost:4433/authorize?client_id=c1ebe466-1cdc-4bd3-ab69-77c3561b9dee&response_type=code&redirect_uri=http://liaohongdong.cn
 
 参数说明
 
@@ -66,9 +66,9 @@ http://notes.coding.me/?code=63910432da9186b22b1ad888d55ae8ae
 
 3. 换取accessToken (POST操作)
 
-首先GET方式请求http://localhost:4433/access会打开一个表单在该表单中填入必填项，具体表单参数详见说明部分
+首先GET方式请求https://localhost:4433/access会打开一个表单在该表单中填入必填项，具体表单参数详见说明部分
 
-表单将会以POST方式提交到http://localhost:4433/accessToken,最终返回accessToken
+表单将会以POST方式提交到https://localhost:4433/access,最终返回accessToken
 
 需要以POST方式提交以下参数换取accessToken
 
@@ -76,7 +76,7 @@ client_id       c1ebe466-1cdc-4bd3-ab69-77c3561b9dee            应用id
 client_secret   d8346ea2-6017-43ed-ad68-19c0f971738b            应用secret
 grant_type      authorization_code                              用于传递授权码的参数名authorization_code
 code            63910432da9186b22b1ad888d55ae8ae                用户登录授权后的授权码
-redirect_uri    http://notes.coding.me                          回调地址
+redirect_uri    http://liaohongdong.cn                         回调地址
 
 最终返回如下数据
 
@@ -84,7 +84,7 @@ redirect_uri    http://notes.coding.me                          回调地址
 
 4. 测试accessToken
 
-http://localhost:4433/v1/openapi/userInfo?access_token=223ae05dfbb0794396fb60a0960c197e
+https://localhost:4433/v1/openapi/userInfo?access_token=223ae05dfbb0794396fb60a0960c197e
 
 测试ok的话返回用户名信息,access_token=223ae05dfbb0794396fb60a0960c197e为上一步获取的access_token
 
