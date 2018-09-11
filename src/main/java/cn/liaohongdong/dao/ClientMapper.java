@@ -20,4 +20,6 @@ public interface ClientMapper {
     List<Client> getAll();
 
     Client findByClientId(String clientId);
+
+    Client findByClientSecret(String clientSecret);
 }

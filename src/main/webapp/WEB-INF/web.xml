@@ -90,6 +90,16 @@
         <!--<url-pattern>/*</url-pattern>-->
     <!--</filter-mapping>-->
 
+    <!-- OAuth Server AccessToken 验证过滤器-->
+    <filter>
+        <filter-name>oauth2</filter-name>
+        <filter-class>cn.liaohongdong.filter.Oauth2Filter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>oauth2</filter-name>
+        <url-pattern>/v1/openapi/*</url-pattern>
+    </filter-mapping>
+
     <servlet>
         <servlet-name>spring</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

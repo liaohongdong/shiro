@@ -23,4 +23,8 @@ public class ClientService {
     public Client findByClientId(String clientId) {
         return clientMapper.findByClientId(clientId);
     }
+
+    public Client findByClientSecret(String clientSecret){
+        return clientMapper.findByClientSecret(clientSecret);
+    }
 }
