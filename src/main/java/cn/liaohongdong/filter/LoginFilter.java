@@ -20,8 +20,13 @@ public class LoginFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         RequestHolder.add(request);
-
-        filterChain.doFilter(request, response);
+//        response.setHeader("Access-Control-Allow-Origin", "*");
+//        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+//        response.setHeader("Access-Control-Max-Age", "3600");
+//        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+//        response.setHeader("Access-Control-Allow-Credentials", "true");
+//        response.setHeader("XDomainRequestAllowed","1");
+        filterChain.doFilter(servletRequest, servletResponse);
         return;
     }
 

@@ -11,9 +11,9 @@
         <property name="authenticator" ref="authenticator"/>
         <property name="realms">
             <list>
-                <ref bean="casRealm"/>
-                <!--<ref bean="shiroRealm"/>-->
-                <!--<ref bean="shiroRealm2"/>-->
+                <!--<ref bean="casRealm"/>-->
+                <ref bean="shiroRealm"/>
+                <ref bean="shiroRealm2"/>
             </list>
         </property>
         <!--<property name="sessionManager" ref="sessionManager"/>-->
@@ -64,8 +64,8 @@
     <!-- 6 id 必须和web.xml文件中的DelegatingFilterProxy的filter-name一致 -->
     <bean class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" id="shiroFilter">
         <property name="securityManager" ref="securityManager"/>
-        <!--<property name="loginUrl" value="/admin/login"/>-->
-        <property name="loginUrl" value="https://liaohongdong.cn/cas/login?service=https://localhost:4433/casFilter"/>
+        <property name="loginUrl" value="/admin/login"/>
+        <!--<property name="loginUrl" value="https://liaohongdong.cn/cas/login?service=https://localhost:4433/casFilter"/>-->
         <!--<property name="successUrl" value="https://localhost:4433/admin/list"/>-->
         <property name="unauthorizedUrl" value="/admin/unauthorized"/>
         <property name="filterChainDefinitionMap" ref="filterChainDefinitionMap"/>

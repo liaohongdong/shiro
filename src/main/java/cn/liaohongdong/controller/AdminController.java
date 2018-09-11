@@ -9,14 +9,15 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -34,9 +35,11 @@ public class AdminController {
         return "login";
     }
 
+    @CrossOrigin
     @RequestMapping("/doLogin")
-    public String doLogin(@RequestParam("username") String username,
-                          @RequestParam("password") String password) {
+    @ResponseBody
+    public Object doLogin(@RequestParam("username") String username,
+                          @RequestParam("password") String password) throws IOException {
         Subject subject = SecurityUtils.getSubject();
         if (!subject.isAuthenticated()) { // 没有经过身份验证
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
@@ -48,6 +51,12 @@ public class AdminController {
             }
         }
         return "list";
+//        LinkedHashMaA'pp<Object, Object> o = Maps.newLinkedHashMap();
+//        o.put("liao1", "liao1");
+//        o.put("liao2", "liao2");
+//        o.put("liao3", "liao3");
+//        ObjectMapper mapper = new ObjectMapper();
+//        return mapper.writeValueAsString(o);
     }
 
     @RequestMapping("/list")
@@ -85,8 +94,11 @@ public class AdminController {
         return "unauthorized";
     }
 
+    @CrossOrigin
     @RequestMapping("/logout")
+    @ResponseBody
     public void logout() {
+        SecurityUtils.getSubject().logout();
         System.out.println("logout");
     }
 
