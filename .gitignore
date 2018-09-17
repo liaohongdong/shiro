@@ -28,4 +28,5 @@ hs_err_pid*
 *.iml
 /shrio.iml
 /classes/
-
+/vue/
+/vue-front/
