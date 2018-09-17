@@ -40,7 +40,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/magic/index',
     name: 'Magic',
-    meta: { title: 'Magic', icon: 'example' },
+    meta: { title: '魔法页面', icon: 'example' },
     children: [{
       path: 'index',
       name: 'Index',

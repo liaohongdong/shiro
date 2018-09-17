@@ -20,6 +20,7 @@ public class Test {
         sr.setSeed("123".getBytes());
         String s2 = sr.nextBytes().toHex();
         System.out.println(s2);
+
     }
 
 }

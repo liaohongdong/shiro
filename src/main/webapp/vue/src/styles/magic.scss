@@ -1,0 +1,21 @@
+.single-col-box {
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  .single-col-img {
+    margin-right: 10px;
+    img {
+      width: 100px;
+    }
+  }
+  .single-col-wrap {
+    .title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+  }
+}

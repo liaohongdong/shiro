@@ -51,12 +51,6 @@ public class AdminController {
             }
         }
         return "list";
-//        LinkedHashMaA'pp<Object, Object> o = Maps.newLinkedHashMap();
-//        o.put("liao1", "liao1");
-//        o.put("liao2", "liao2");
-//        o.put("liao3", "liao3");
-//        ObjectMapper mapper = new ObjectMapper();
-//        return mapper.writeValueAsString(o);
     }
 
     @RequestMapping("/list")

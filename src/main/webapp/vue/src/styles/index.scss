@@ -3,6 +3,7 @@
 @import './transition.scss';
 @import './element-ui.scss';
 @import './sidebar.scss';
+@import './magic.scss';
 
 body {
   height: 100%;
@@ -43,6 +44,12 @@ a:hover {
 div:focus{
   outline: none;
  }
+
+ul,li{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
 a:focus,
 a:active {
